@@ -5,6 +5,7 @@ namespace ShapeDrawingApp.Core;
 
 public static class SekilOlusturma
 {
+    // SekilOlustur metodu, verilen sekil tipine, baslangic ve bitis noktalarina ve sekil stiline gore uygun bir Sekil nesnesi olusturur.
     public static Sekil SekilOlustur(Sekiller type, PointF start, PointF end, SekilStili style)
     {
 
@@ -23,7 +24,7 @@ public static class SekilOlusturma
         float yMin = MathF.Min(start.Y, end.Y);
 
 
-
+        // Sekil tipine gore uygun Sekil nesnesi olusturulur. Dikdortgen, Kare, Daire, Elips, Ucgen, Cizgi ve Paralelkenar gibi sekil tipleri desteklenir.
         Sekil shape = type switch
 
         {
@@ -58,8 +59,9 @@ public static class SekilOlusturma
 
         return shape;
 
-    }
+    }
 
+    // IsMeaningfulShape metodu, verilen sekil tipine, baslangic ve bitis noktalarina gore sekilin anlamli bir sekil olup olmadigini kontrol eder. Cizgi, Kare, Daire gibi sekil tipleri icin belirli bir minimum boyut kontrolu yapilir.
     public static bool IsMeaningfulShape(Sekiller type, PointF start, PointF end)
     {
         float dx = end.X - start.X;
@@ -79,7 +81,7 @@ public static class SekilOlusturma
             _ => true
         };
     }
-
+    // CreateTriangle metodu, verilen konum ve boyutlara gore bir UcgenSekil nesnesi olusturur. Ucgen, verilen dikdortgenin icine sigacak sekilde hesaplanir.
     private static UcgenSekil CreateTriangle(float xMin, float yMin, float w, float h)
     {
         var top = new PointF(xMin + w / 2f, yMin);
@@ -87,7 +89,7 @@ public static class SekilOlusturma
         var bottomRight = new PointF(xMin + w, yMin + h);
         return new UcgenSekil { Nokta1 = top, Nokta2 = bottomLeft, Nokta3 = bottomRight };
     }
-
+    // CreateParallelogram metodu, verilen konum, boyut ve yatay kayma miktarina gore bir ParalelkenarSekil nesnesi olusturur. Paralelkenar, verilen dikdortgenin icine sigacak sekilde hesaplanir ve dx degerine gore sola veya saga kaydirilir.
     private static ParalelkenarSekil CreateParallelogram(float xMin, float yMin, float w, float h, float dx)
     {
         float signX = dx >= 0 ? 1f : -1f;

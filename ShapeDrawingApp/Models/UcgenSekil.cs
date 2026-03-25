@@ -5,6 +5,7 @@ namespace ShapeDrawingApp.Models;
 
 public class UcgenSekil : Sekil
 {
+    // Ucgen sekli, 3 kose koordinatlarini tutar.
     public PointF Nokta1 { get; set; }
     public PointF Nokta2 { get; set; }
     public PointF Nokta3 { get; set; }
@@ -13,6 +14,7 @@ public class UcgenSekil : Sekil
 
     public override void Draw(Graphics g)
     {
+        // Ucgen sekli, kenarlik rengi, kalinligi ve ic rengi kullanarak cizilir.
         var koseler = new[] { Nokta1, Nokta2, Nokta3};
 
         using var kalem = new Pen(KenarlikRengi, Kalinlik);
@@ -27,6 +29,7 @@ public class UcgenSekil : Sekil
 
     public override bool HitTest(PointF nokta)
     {
+        // Ucgen sekli, noktanin ucgenin icinde veya kenarinda olup olmadigini kontrol eder.
         using var yol = new GraphicsPath();
         yol.AddPolygon(new[] { Nokta1, Nokta2, Nokta3 });
 
@@ -41,6 +44,7 @@ public class UcgenSekil : Sekil
 
     public override void MoveBy(float dx, float dy)
     {
+        //  Ucgen sekli, 3 kose koordinatlarini dx ve dy kadar kaydirir.
         Nokta1 = new PointF(Nokta1.X + dx, Nokta1.Y + dy);
         Nokta2 = new PointF(Nokta2.X + dx, Nokta2.Y + dy);
         Nokta3 = new PointF(Nokta3.X + dx, Nokta3.Y + dy);

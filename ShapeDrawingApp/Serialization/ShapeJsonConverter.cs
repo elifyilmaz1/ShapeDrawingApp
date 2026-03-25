@@ -7,6 +7,7 @@ namespace ShapeDrawingApp.Serialization;
 
 public class ShapeJsonConverter : JsonConverter<Sekil>
 {
+    // ShapeJsonConverter sinifi, Sekil nesnelerinin JSON formatina serileştirilmesi ve deseralizasyonu icin kullanilir.
     public override Sekil? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         using var doc = JsonDocument.ParseValue(ref reader);
@@ -25,6 +26,7 @@ public class ShapeJsonConverter : JsonConverter<Sekil>
 
         Sekil shape = shapeType switch
         {
+            // Sekil tipine gore uygun Sekil nesnesi olustur
             Sekiller.Dikdortgen => new DikdortgenSekil(),
             Sekiller.Kare => new KareSekil(),
             Sekiller.Daire => new DaireSekil(),
@@ -40,6 +42,7 @@ public class ShapeJsonConverter : JsonConverter<Sekil>
         shape.İcRengi = Color.FromArgb(fillArgb);
         shape.Kalinlik = thickness;
 
+        // Sekil tipine gore ek ozellikleri oku
         switch (shape)
         {
             case DikdortgenSekil dikdortgen:
@@ -98,6 +101,7 @@ public class ShapeJsonConverter : JsonConverter<Sekil>
 
     public override void Write(Utf8JsonWriter writer, Sekil value, JsonSerializerOptions options)
     {
+        // Sekil nesnesini JSON formatina serileştir
         writer.WriteStartObject();
 
         writer.WriteString("Sekil", value.ShapeType.ToString());
@@ -108,6 +112,7 @@ public class ShapeJsonConverter : JsonConverter<Sekil>
 
         switch (value)
         {
+            // Sekil tipine gore ek ozellikleri yaz
             case DikdortgenSekil dikdortgen:
                 writer.WriteNumber("X", dikdortgen.X);
                 writer.WriteNumber("Y", dikdortgen.Y);
@@ -158,6 +163,7 @@ public class ShapeJsonConverter : JsonConverter<Sekil>
 
     private static void WritePointsArray(Utf8JsonWriter writer, string name, PointF[] points)
     {
+        // Bir dizi nokta koordinatlarini JSON formatinda yaz
         writer.WritePropertyName(name);
         writer.WriteStartArray();
         foreach (var pt in points)
@@ -170,6 +176,7 @@ public class ShapeJsonConverter : JsonConverter<Sekil>
         writer.WriteEndArray();
     }
 
+    // Bir dizi nokta koordinatlarini JSON formatindan oku
     private static void ReadPointsArray(JsonElement root, string name, int expectedCount, out PointF a, out PointF b, out PointF c)
     {
         var pointsEl = ReadRequiredProperty(root, name, $"{name}:");
@@ -211,6 +218,7 @@ public class ShapeJsonConverter : JsonConverter<Sekil>
         throw new JsonException($"Missing required property. Expected one of: {string.Join(", ", names)}");
     }
 
+    // Bir float ozelligi JSON formatindan oku, alternatif isimler desteklenir
     private static float ReadFloatProperty(JsonElement root, params string[] names)
     {
         return (float)ReadRequiredProperty(root, names).GetDouble();

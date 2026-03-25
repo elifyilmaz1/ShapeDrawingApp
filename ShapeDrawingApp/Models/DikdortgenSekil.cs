@@ -5,6 +5,7 @@ namespace ShapeDrawingApp.Models;
 
 public class DikdortgenSekil : Sekil
 {
+    // Dikdortgen sekli, sol ust kose koordinatlari (X, Y) ve genislik ile yuksekligi tutar.
     public float X { get; set; }
     public float Y { get; set; }
     public float Genislik { get; set; }
@@ -14,6 +15,7 @@ public class DikdortgenSekil : Sekil
 
     public override void Draw(Graphics g)
     {
+        // Dikdortgen sekli, kenarlik rengi, kalinligi ve ic rengi kullanarak cizilir.
         var dikdortgen = GetBounds();
         if (dikdortgen.Width <= 0 || dikdortgen.Height <= 0)
         {
@@ -32,6 +34,7 @@ public class DikdortgenSekil : Sekil
 
     public override bool HitTest(PointF nokta)
     {
+        // Dikdortgen sekli, noktanin dikdortgenin icinde veya kenarinda olup olmadigini kontrol eder.
         var dikdortgen = GetBounds();
         if (dikdortgen.Width <= 0 || dikdortgen.Height <= 0)
             return false;
@@ -50,6 +53,7 @@ public class DikdortgenSekil : Sekil
 
     public override void MoveBy(float dx, float dy)
     {
+        // Dikdortgen sekli, sol ust kose koordinatlarini dx ve dy kadar kaydirir.
         X += dx;
         Y += dy;
     }

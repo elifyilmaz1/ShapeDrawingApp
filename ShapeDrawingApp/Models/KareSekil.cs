@@ -5,6 +5,7 @@ namespace ShapeDrawingApp.Models;
 
 public class KareSekil : Sekil
 {
+    // Kare sekli, sol ust kose koordinatlari (X, Y) ve boyutu tutar.
     public float X { get; set; }
     public float Y { get; set; }
     public float Boyut { get; set; }
@@ -13,6 +14,7 @@ public class KareSekil : Sekil
 
     public override void Draw(Graphics g)
     {
+        //  Kare sekli, kenarlik rengi, kalinligi ve ic rengi kullanarak cizilir.
         var dikdortgen = GetBounds();
         if (dikdortgen.Width <= 0 || dikdortgen.Height <= 0)
             return;
@@ -29,6 +31,7 @@ public class KareSekil : Sekil
 
     public override bool HitTest(PointF nokta)
     {
+        //  Kare sekli, noktanin karenin icinde veya kenarinda olup olmadigini kontrol eder.
         var dikdortgen = GetBounds();
         if (dikdortgen.Width <= 0 || dikdortgen.Height <= 0)
             return false;
@@ -47,6 +50,7 @@ public class KareSekil : Sekil
 
     public override void MoveBy(float dx, float dy)
     {
+        // Kare sekli, sol ust kose koordinatlarini dx ve dy kadar kaydirir.
         X += dx;
         Y += dy;
     }

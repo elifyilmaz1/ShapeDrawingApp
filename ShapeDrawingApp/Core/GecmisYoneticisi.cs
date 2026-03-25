@@ -3,6 +3,7 @@ using ShapeDrawingApp.Models;
 
 namespace ShapeDrawingApp.Core;
 
+// GecmisYoneticisi, sekil cizim uygulamasinda kullanicinin yaptigi degisiklikleri kaydeden ve geri alma/ileri alma islemlerini yoneten bir siniftir.
 public class GecmisYoneticisi
 {
     private readonly JsonSerializerOptions _jsonOptions;
@@ -17,6 +18,7 @@ public class GecmisYoneticisi
     public bool geriAlma => _gerial.Count > 1;
     public bool ileriAlma => _ilerial.Count > 0;
 
+    // Sifirla metodu, gecmis ve ileri alma yiginlarini temizler ve mevcut sekil listesini gecmis yiginina ekler.
     public void Sifirla(List<Sekil> sekiller)
     {
         _gerial.Clear();
@@ -24,6 +26,7 @@ public class GecmisYoneticisi
         _gerial.Push(SekilleriSerilestir(sekiller));
     }
 
+    // Kaydet metodu, mevcut sekil listesini gecmis yiginina ekler ve ileri alma yiginini temizler.
     public void Kaydet(List<Sekil> sekiller)
     {
         _gerial.Push(SekilleriSerilestir(sekiller));

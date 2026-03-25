@@ -5,6 +5,7 @@ namespace ShapeDrawingApp.Models;
 
 public class DaireSekil : Sekil
 {
+    // Daire sekli, merkez koordinatlari (X, Y) ve capi tutar.
     public float X { get; set; }
     public float Y { get; set; }
     public float Cap { get; set; }
@@ -13,6 +14,7 @@ public class DaireSekil : Sekil
 
     public override void Draw(Graphics g)
     {
+        // Daire sekli, kenarlik rengi, kalinligi ve ic rengi kullanarak cizilir.
         var dikdortgen = GetBounds();
         if (dikdortgen.Width <= 0 || dikdortgen.Height <= 0)
             return;
@@ -29,6 +31,7 @@ public class DaireSekil : Sekil
 
     public override bool HitTest(PointF nokta)
     {
+        // Daire sekli, noktanin dairenin icinde veya kenarinda olup olmadigini kontrol eder.
         var dikdortgen = GetBounds();
         if (dikdortgen.Width <= 0 || dikdortgen.Height <= 0)
             return false;
@@ -47,6 +50,7 @@ public class DaireSekil : Sekil
 
     public override void MoveBy(float dx, float dy)
     {
+        // Daire sekli, merkez koordinatlarini dx ve dy kadar kaydirir.
         X += dx;
         Y += dy;
     }

@@ -14,10 +14,11 @@ public partial class Form1 : Form
 {
     private enum InteractionMode
     {
+        //etkileşim modu
         Cizim,
         Secili
     }
-
+    //uygulamadaki şekillerin listesi
     private List<Sekil> _sekiller = new();
     private Sekil? _previewShape;
     private Sekil? _selectedShape;
@@ -96,6 +97,7 @@ public partial class Form1 : Form
         _shapeComboBox = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList, Width = 160 };
         _shapeComboBox.Items.AddRange(new object[]
         {
+            //şekil seçim combo box'ı
             "Dikdörtgen",
             "Kare",
             "Daire",
@@ -108,35 +110,35 @@ public partial class Form1 : Form
         _shapeComboBox.SelectedIndexChanged += (_, _) => UpdateActiveShapeFromUi();
         toolbar.Controls.Add(new Label { Text = "Şekil:", AutoSize = true, Padding = new Padding(6, 10, 0, 0) });
         toolbar.Controls.Add(_shapeComboBox);
-
+        //mod seçim radio button'ları
         _drawModeRadio = new RadioButton { Text = "Çiz", Checked = true, AutoSize = true, Padding = new Padding(15, 10, 0, 0) };
         _selectModeRadio = new RadioButton { Text = "Seç/Taşı", AutoSize = true, Padding = new Padding(15, 10, 0, 0) };
         _drawModeRadio.CheckedChanged += (_, _) => _mod = _drawModeRadio.Checked ? InteractionMode.Cizim : _mod;
         _selectModeRadio.CheckedChanged += (_, _) => _mod = _selectModeRadio.Checked ? InteractionMode.Secili : _mod;
         toolbar.Controls.Add(_drawModeRadio);
         toolbar.Controls.Add(_selectModeRadio);
-
+        //kalınlık seçimi 
         toolbar.Controls.Add(new Label { Text = "Kalınlık:", AutoSize = true, Padding = new Padding(15, 10, 0, 0) });
         _thicknessUpDown = new NumericUpDown { Minimum = 1, Maximum = 30, DecimalPlaces = 0, Width = 70, Value = (decimal)_currentStyle.Kalinlik };
         _thicknessUpDown.ValueChanged += (_, _) => _currentStyle.Kalinlik = (float)_thicknessUpDown.Value;
         toolbar.Controls.Add(_thicknessUpDown);
-
+        //renk seçim butonları
         _borderColorButton = new Button { Text = "Kenarlık Rengi", Width = 120, Height = 30, BackColor = _currentStyle.KenarlikRengi };
         _borderColorButton.Click += (_, _) => PickColor(isBorder: true);
         toolbar.Controls.Add(_borderColorButton);
-
+        //dolgu rengi seçim butonu
         _fillColorButton = new Button { Text = "İç Rengi", Width = 120, Height = 30, BackColor = _currentStyle.İcRengi };
         _fillColorButton.Click += (_, _) => PickColor(isBorder: false);
         toolbar.Controls.Add(_fillColorButton);
-
+        //seçilen şekle özellikleri uygulama butonu
         _applyPropsButton = new Button { Text = "Seçilenleri Uygula", Width = 220, Height = 35 };
         _applyPropsButton.Click += (_, _) => ApplyPropertiesToSelected();
         toolbar.Controls.Add(_applyPropsButton);
-
+        //seçilen şekli silme butonu
         _deleteButton = new Button { Text = "Seçileni Sil", Width = 140, Height = 35 };
         _deleteButton.Click += (_, _) => DeleteSelectedShape();
         toolbar.Controls.Add(_deleteButton);
-
+        //geri alma ve ileri alma butonları
         _undoButton = new Button { Text = "Geri al (Ctrl+Z)", Width = 140, Height = 35 };
         _undoButton.Click += (_, _) => Undo();
         toolbar.Controls.Add(_undoButton);
@@ -144,7 +146,7 @@ public partial class Form1 : Form
         _redoButton = new Button { Text = "İleri al (Ctrl+Y)", Width = 140, Height = 35 };
         _redoButton.Click += (_, _) => Redo();
         toolbar.Controls.Add(_redoButton);
-
+        //dosya kaydetme ve yükleme butonları
         _saveButton = new Button { Text = "Kaydet", Width = 120, Height = 35 };
         _saveButton.Click += (_, _) => SaveToFile();
         toolbar.Controls.Add(_saveButton);
@@ -152,16 +154,16 @@ public partial class Form1 : Form
         _loadButton = new Button { Text = "Yükle", Width = 120, Height = 35 };
         _loadButton.Click += (_, _) => LoadFromFile();
         toolbar.Controls.Add(_loadButton);
-
+        //durum göstergesi label'ı
         _statusLabel = new Label { Text = "", AutoSize = true, Padding = new Padding(10, 10, 0, 0) };
         toolbar.Controls.Add(_statusLabel);
-
+        //çizim yapılan panel
         _canvasPanel = new DoubleBufferedPanel
         {
             Dock = DockStyle.Fill,
             BackColor = Color.White
         };
-
+        //panel olayları
         _canvasPanel.Paint += CanvasPanel_Paint;
         _canvasPanel.MouseDown += CanvasPanel_MouseDown;
         _canvasPanel.MouseMove += CanvasPanel_MouseMove;

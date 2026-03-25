@@ -5,6 +5,7 @@ namespace ShapeDrawingApp.Models;
 
 public class ParalelkenarSekil : Sekil
 {
+    // Paralelkenar sekli, 4 kose koordinatlarini tutar.
     public PointF Nokta1 { get; set; } 
     public PointF Nokta2 { get; set; } 
     public PointF Nokta3 { get; set; } 
@@ -16,6 +17,7 @@ public class ParalelkenarSekil : Sekil
 
     public override void Draw(Graphics g)
     {
+        // Paralelkenar sekli, kenarlik rengi, kalinligi ve ic rengi kullanarak cizilir.
         var koseler = new[] { Nokta1, Nokta2, Nokta3, Nokta4 };
         using var kalem = new Pen(KenarlikRengi, Kalinlik);
         if (İcRengi.A > 0)
@@ -29,6 +31,7 @@ public class ParalelkenarSekil : Sekil
 
     public override bool HitTest(PointF nokta)
     {
+        // Paralelkenar sekli, noktanin paralelkenarin icinde veya kenarinda olup olmadigini kontrol eder.
         var koseler = new[] { Nokta1, Nokta2, Nokta3, Nokta4 };
         using var yol = new GraphicsPath();
         yol.AddPolygon(koseler);
@@ -44,6 +47,7 @@ public class ParalelkenarSekil : Sekil
 
     public override void MoveBy(float dx, float dy)
     {
+        // Paralelkenar sekli, 4 kose koordinatlarini dx ve dy kadar kaydirir.
         Nokta1 = new PointF(Nokta1.X + dx, Nokta1.Y + dy);
         Nokta2 = new PointF(Nokta2.X + dx, Nokta2.Y + dy);
         Nokta3 = new PointF(Nokta3.X + dx, Nokta3.Y + dy);

@@ -4,6 +4,7 @@ namespace ShapeDrawingApp.Models;
 
 public abstract class Sekil
 {
+    // Sekil sinifi, tum sekillerin ortak ozelliklerini ve davranislarini tanimlar.
     protected Sekil()
     {
         Id = Guid.NewGuid();
